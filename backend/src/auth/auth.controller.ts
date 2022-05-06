@@ -14,12 +14,12 @@ export class AuthController {
   }
 
   @Post('signin')
-  signIn(@Body() authCredentialsDto: AuthCredentialsDto){
+  signIn(@Body() authCredentialsDto: AuthCredentialsDto): Promise<{accessToken:string}>{
     return this.authService.signIn(authCredentialsDto)
   }
 
   @Get("/facebook")
-  @UseGuards(AuthGuard("facebook"))
+  @UseGuards(AuthGuard('facebook'))
   async facebookLogin(): Promise<any> {
     return HttpStatus.OK;
   }
@@ -27,7 +27,6 @@ export class AuthController {
   @Get("/facebook/redirect")
   @UseGuards(AuthGuard("facebook"))
   async facebookLoginRedirect(@Req() req: Request): Promise<any> {
-    console.log(req)
     return {
       statusCode: HttpStatus.OK,
       data: req.user,
