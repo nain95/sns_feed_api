@@ -6,13 +6,17 @@ import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
 import AuthService from './auth/auth.service';
 import { typeORMConfig } from './configs/typeorm.config';
+import { FeedService } from './feed/feed.service';
+import { FeedController } from './feed/feed.controller';
+import { FeedModule } from './feed/feed.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeORMConfig),
-    AuthModule
+    AuthModule,
+    FeedModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, FeedController],
+  providers: [AppService, FeedService],
 })
 export class AppModule {}

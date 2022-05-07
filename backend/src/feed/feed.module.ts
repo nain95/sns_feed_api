@@ -5,6 +5,8 @@ import { UserRepository } from 'src/auth/user.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from 'src/auth/auth.module';
 import { FeedRepository } from './feed.repository';
+import { Feed } from './feed.entity';
+import { User } from 'src/auth/user.entity';
 
 @Module({
     imports:[

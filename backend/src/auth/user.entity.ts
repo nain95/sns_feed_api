@@ -19,9 +19,9 @@ export class User extends BaseEntity{
     @Column()
     facebook_last_time: string;
 
-    @OneToOne(
+    @OneToMany(
         () => Feed,
         (feed) => feed.user,
     )
-    feed: Feed;
+    feed: Feed[];
 }

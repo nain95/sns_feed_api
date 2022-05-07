@@ -23,6 +23,15 @@ export class UserRepository extends Repository<User> {
         }
     }
 
+    async saveFeed(feed){
+        const user = this.create({feed:[feed]});
+        try{
+            await this.save(user);
+        }catch (error) {
+                throw new InternalServerErrorException();
+        }
+    }
+
     async updatePullTime(username:string, time:string){
         const user: User = await this.findOne({ username });
         const update_data = this.create({id : user.id, facebook_last_time:time})

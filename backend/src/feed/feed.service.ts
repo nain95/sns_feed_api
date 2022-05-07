@@ -1,6 +1,7 @@
 import { HttpCode, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import axios from 'axios';
+import { User } from 'src/auth/user.entity';
 import { UserRepository } from 'src/auth/user.repository';
 import { FeedRepository } from './feed.repository';
 
@@ -17,6 +18,7 @@ export class FeedService {
         const access_token = await this.userRepository.getFbAccesstoken(username)
         const products = await axios.get(this.graph_URL+this.version+'me?access_token='+access_token);
         const id: string = products.data['id'];
+        const user = await this.userRepository.findOne({username})
         let flag:number = 0;
         let feed = await axios.get(this.graph_URL + this.version + id + '/feed?access_token='+access_token)
         const facebook_last_time = await this.userRepository.getPullTime(username);
@@ -49,7 +51,7 @@ export class FeedService {
                         }   
                     }
                 }
-                this.feedRepository.saveFeed(username, message, image_url,created_time);
+                this.feedRepository.saveFeed(user,username, message, image_url,created_time);
                 flag = 1;
             }
             feed = await axios.get(feed.data['paging']['next'])
