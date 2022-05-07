@@ -22,4 +22,26 @@ export class UserRepository extends Repository<User> {
             }
         }
     }
+
+    async updatePullTime(username:string, time:string){
+        const user: User = await this.findOne({ username });
+        const update_data = this.create({id : user.id, facebook_last_time:time})
+        try{
+            await this.save(update_data);
+        }catch (error) {
+                throw new InternalServerErrorException();
+        }
+    }
+
+    async getPullTime(username:string): Promise<string>{
+        const user: User = await this.findOne({ username });
+        console.log(user)
+        return user['facebook_last_time']
+    }
+
+    async getFbAccesstoken(username: string): Promise<string>{
+        const user: User = await this.findOne({username});
+        console.log(user);
+        return user['facebook_access_token'];
+    }
 }
