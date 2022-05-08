@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException} from "@nestjs/common";
+import { ExecutionContext, HttpException, HttpStatus, Injectable, Redirect, UnauthorizedException} from "@nestjs/common";
 import { PassportStrategy } from "@nestjs/passport";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ExtractJwt, Strategy } from "passport-jwt"
@@ -12,7 +12,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, "jwt"){
         private userRepository: UserRepository
     ) {
         super({
-            secretOrKey: 'Secret1234',
+            secretOrKey: process.env.SECRET_KEY,
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
         })
     }

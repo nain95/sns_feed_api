@@ -22,4 +22,14 @@ export class FeedRepository extends Repository<Feed> {
             }
         }
     }
+
+    async getFeed(username: string): Promise<any> {
+        const feed: Feed[] = await this.find({author:username});
+        return feed
+    }
+
+    async getFeedId(id: number): Promise<any> {
+        const feed: Feed = await this.findOne({id});
+        return feed
+    }
 }

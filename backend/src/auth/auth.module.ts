@@ -7,6 +7,7 @@ import AuthService from './auth.service';
 import { FacebookRepository } from './facebook.repository';
 import { JwtStrategy } from './jwt.strategy';
 import { FacebookStrategy } from './local.strategy';
+import { User } from './user.entity';
 import { UserRepository } from './user.repository';
 
 @Module({
@@ -23,6 +24,6 @@ import { UserRepository } from './user.repository';
     ],
     controllers: [AuthController],
     providers : [AuthService, FacebookStrategy, JwtStrategy],
-    exports: [JwtStrategy, PassportModule]
+    exports: [JwtStrategy, PassportModule, TypeOrmModule]
 })
 export class AuthModule {}

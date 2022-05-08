@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SNS</title>
+	<style>
+
+</style>
+</head>
+
+<main>
+<button onclick="facebook()"> FACEBOOK </button>
+<img src="https://scontent-ssn1-1.xx.fbcdn.net/v/t39.30808-6/279576363_2560608237405632_4443713006396026751_n.jpg?stp=dst-jpg_s720x720&_nc_cat=100&ccb=1-6&_nc_sid=8024bb&_nc_ohc=z6YGBWXFJJcAX-X9mzA&_nc_oc=AQmot3qwgbjESIxIpsamosAX0JYUnMQZy_DX_DzcLHNHAOm7RcCURCfThyaCFHfNVB4&_nc_ht=scontent-ssn1-1.xx&edm=AHVUxfIEAAAA&oh=00_AT9-X_PUSkFUNU2wS7MRF1PVSs-UAMrcaierYUfwuT9xyA&oe=627A752B">
+<a href="https://www.facebook.com/login.php?skip_api_login=1&api_key=321029633493531&kid_directed_site=0&app_id=321029633493531&signed_next=1&next=https%3A%2F%2Fwww.facebook.com%2Fv3.2%2Fdialog%2Foauth%3Fresponse_type%3Dcode%26redirect_uri%3Dhttps%253A%252F%252F25fe-121-135-254-216.ngrok.io%252Fauth%252Ffacebook%252Fredirect%26scope%3Demail%252Cuser_posts%26client_id%3D321029633493531%26ret%3Dlogin%26fbapp_pres%3D0%26logger_id%3D012f4f0e-d6e6-424f-9868-d36bdc34bb16%26tp%3Dunspecified&cancel_url=https%3A%2F%2F25fe-121-135-254-216.ngrok.io%2Fauth%2Ffacebook%2Fredirect%3Ferror%3Daccess_denied%26error_code%3D200%26error_description%3DPermissions%2Berror%26error_reason%3Duser_denied%23_%3D_&display=page&locale=ko_KR&pl_dbl=0">
+<button>test</button>
+</a>
+</main>
+
+</body>
+
+<script>
+    function facebook(){
+        const token = localStorage.getItem('wtw-token') || '';
+        console.log(token)
+        fetch('http://localhost:3000/auth/test',{
+            method: 'GET',
+            redirect: 'follow',
+            headers: {
+                'Authorization': token,
+            },
+        })
+        .then((response) => {
+            window.location.href = 'http://localhost:3000/auth/facebook'
+            // console.log(response.body)
+            // window.location.href = response.redirected
+        })
+    }
+</script>
+</html>

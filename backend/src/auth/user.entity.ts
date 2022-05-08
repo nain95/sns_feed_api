@@ -1,4 +1,4 @@
-import { Feed } from "src/feed/feed.entity";
+import { Feed } from "../feed/feed.entity";
 import { BaseEntity, Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity()

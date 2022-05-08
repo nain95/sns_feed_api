@@ -39,8 +39,6 @@ export class FeedService {
                     if (created_time == facebook_last_time){
                         return HttpStatus.OK
                     }
-                    // console.log(post_data['created_time'])
-                    // console.log(post_data['message'])
                 }
                 const attachments = await axios.get(this.graph_URL + this.version + post_id + '/attachments?access_token='+access_token)
                 if (attachments.data['data'].length != 0){
@@ -57,5 +55,13 @@ export class FeedService {
             feed = await axios.get(feed.data['paging']['next'])
         }
         return HttpStatus.OK;
+    }
+
+    async getFeed(username: string): Promise<any> {
+        return this.feedRepository.getFeed(username);
+    }
+
+    async getFeedId(id: number): Promise<any> {
+        return this.feedRepository.getFeedId(id);
     }
 }

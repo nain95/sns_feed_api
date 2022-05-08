@@ -1,4 +1,4 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { FeedService } from './feed.service';
 import { Request } from "express";
@@ -16,7 +16,13 @@ export class FeedController {
 
     @Get('/')
     @UseGuards(AuthGuard('jwt'))
-    getFeed(){
-        return {'message': 'hello'}
+    getFeed(@Req() req:Request){
+        return this.feedService.getFeed(req.user['username'])
+    }
+
+    @Get('/:id')
+    @UseGuards(AuthGuard('jwt'))
+    getFeedId(@Param() param){
+        return this.feedService.getFeedId(param['id'])
     }
 }

@@ -48,6 +48,11 @@ export class UserRepository extends Repository<User> {
         return user['facebook_last_time']
     }
 
+    async getUserId(username:string): Promise<User>{
+        const user: User = await this.findOne({ username });
+        return user
+    }
+
     async getFbAccesstoken(username: string): Promise<string>{
         const user: User = await this.findOne({username});
         console.log(user);

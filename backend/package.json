@@ -28,6 +28,7 @@
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/typeorm": "^8.0.3",
     "@types/passport-facebook": "^2.1.11",
+    "ajax": "^0.0.4",
     "axios": "^0.27.2",
     "bcryptjs": "^2.4.3",
     "class-validator": "^0.13.2",
