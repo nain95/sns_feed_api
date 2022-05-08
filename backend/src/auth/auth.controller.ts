@@ -32,7 +32,6 @@ export class AuthController {
 
 
   @Get("/facebook/redirect")
-  // @UseGuards(AuthGuard("jwt"), AuthGuard("facebook"))
   @UseGuards(AuthGuard("facebook"))
   async facebookLoginRedirect(@Req() req: Request): Promise<any> {
     const facebook_access_token: string = req.user["facebook_access_token"];

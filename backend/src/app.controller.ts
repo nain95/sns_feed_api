@@ -10,7 +10,7 @@ export class AppController {
   @Get('/')
   // @UseGuards(AuthGuard('jwt'))
   // @UseFilters(ViewAuthFilter)
-  @Render('main.ejs')
+  // @Render('main.ejs')
   getMain():void{
     
   }
