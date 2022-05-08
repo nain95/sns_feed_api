@@ -5,5 +5,5 @@ export declare class FeedService {
     private readonly version;
     pullingfeed(username: string): Promise<any>;
     getFeed(username: string): Promise<any>;
-    getFeedId(id: number): Promise<any>;
+    getFeedId(username: string, id: number): Promise<any>;
 }

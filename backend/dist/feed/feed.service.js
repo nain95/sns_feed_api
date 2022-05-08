@@ -22,6 +22,9 @@ let FeedService = class FeedService {
     }
     async pullingfeed(username) {
         const access_token = await this.userRepository.getFbAccesstoken(username);
+        if (access_token == '') {
+            throw new common_1.ConflictException('not found accesstoken');
+        }
         const products = await axios_1.default.get(this.graph_URL + this.version + 'me?access_token=' + access_token);
         const id = products.data['id'];
         const user = await this.userRepository.findOne({ username });
@@ -40,7 +43,7 @@ let FeedService = class FeedService {
                     console.log(created_time);
                     console.log(facebook_last_time);
                     if (flag == 0) {
-                        this.userRepository.updatePullTime(username, created_time);
+                        await this.userRepository.updatePullTime(username, created_time);
                     }
                     if (created_time == facebook_last_time) {
                         return common_1.HttpStatus.OK;
@@ -65,8 +68,8 @@ let FeedService = class FeedService {
     async getFeed(username) {
         return this.feedRepository.getFeed(username);
     }
-    async getFeedId(id) {
-        return this.feedRepository.getFeedId(id);
+    async getFeedId(username, id) {
+        return this.feedRepository.getFeedId(username, id);
     }
 };
 __decorate([

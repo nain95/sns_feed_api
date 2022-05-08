@@ -1,7 +1,11 @@
 import { User } from "src/auth/user.entity";
 import { BaseEntity, Column, Entity, Index, IsNull, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, Unique } from "typeorm";
 
-@Entity()
+@Entity({
+    orderBy: {
+        created_time: 'DESC'
+      }
+})
 export class Feed extends BaseEntity{
     @PrimaryGeneratedColumn()
     id: number;

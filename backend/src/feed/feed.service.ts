@@ -1,4 +1,4 @@
-import { HttpCode, HttpStatus, Injectable } from '@nestjs/common';
+import { ConflictException, HttpCode, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import axios from 'axios';
 import { User } from 'src/auth/user.entity';
@@ -16,6 +16,9 @@ export class FeedService {
 
     async pullingfeed(username: string): Promise<any> {
         const access_token = await this.userRepository.getFbAccesstoken(username)
+        if (access_token == ''){
+            throw new ConflictException('not found accesstoken');
+        }
         const products = await axios.get(this.graph_URL+this.version+'me?access_token='+access_token);
         const id: string = products.data['id'];
         const user = await this.userRepository.findOne({username})
@@ -34,7 +37,7 @@ export class FeedService {
                     console.log(created_time)
                     console.log(facebook_last_time)
                     if (flag == 0){
-                        this.userRepository.updatePullTime(username, created_time)
+                        await this.userRepository.updatePullTime(username, created_time)
                     }
                     if (created_time == facebook_last_time){
                         return HttpStatus.OK
@@ -61,7 +64,7 @@ export class FeedService {
         return this.feedRepository.getFeed(username);
     }
 
-    async getFeedId(id: number): Promise<any> {
-        return this.feedRepository.getFeedId(id);
+    async getFeedId(username: string, id: number): Promise<any> {
+        return this.feedRepository.getFeedId(username, id);
     }
 }

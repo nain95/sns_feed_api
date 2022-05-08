@@ -34,9 +34,12 @@ let FeedRepository = class FeedRepository extends typeorm_2.Repository {
         const feed = await this.find({ author: username });
         return feed;
     }
-    async getFeedId(id) {
+    async getFeedId(username, id) {
         const feed = await this.findOne({ id });
-        return feed;
+        if (feed.author == username)
+            return feed;
+        else
+            throw new common_1.ConflictException('author != username');
     }
 };
 __decorate([

@@ -2,6 +2,7 @@ import { UserRepository } from './user.repository';
 import { AuthCredentialsDto } from './dto/auth-credential.dto';
 import { JwtService } from '@nestjs/jwt';
 import { FacebookRepository } from './facebook.repository';
+import { User } from './user.entity';
 export default class AuthService {
     private userRepository;
     private jwtService;
@@ -12,4 +13,5 @@ export default class AuthService {
         accessToken: string;
     }>;
     facebookSingIn(username: string, facebook_access_token: string): Promise<void>;
+    saveAccessToken(username: string, access_token: string): Promise<User>;
 }

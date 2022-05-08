@@ -42,6 +42,9 @@ let AuthService = class AuthService {
     async facebookSingIn(username, facebook_access_token) {
         return this.facebookRepository.updateUser_facebook(username, facebook_access_token);
     }
+    async saveAccessToken(username, access_token) {
+        return this.userRepository.saveAccessToken(username, access_token);
+    }
 };
 AuthService = __decorate([
     (0, common_1.Injectable)(),

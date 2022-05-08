@@ -5,5 +5,5 @@ export declare class FeedController {
     constructor(feedService: FeedService);
     pullingfeed(req: Request): Promise<any>;
     getFeed(req: Request): Promise<any>;
-    getFeedId(param: any): Promise<any>;
+    getFeedId(param: any, req: Request): Promise<any>;
 }

@@ -5,6 +5,7 @@ import { AuthCredentialsDto } from './dto/auth-credential.dto';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { FacebookRepository } from './facebook.repository';
+import { User } from './user.entity';
 @Injectable()
 export default class AuthService{
   constructor(
@@ -36,5 +37,9 @@ export default class AuthService{
 
   async facebookSingIn(username:string, facebook_access_token:string): Promise<void>{
     return this.facebookRepository.updateUser_facebook(username, facebook_access_token);
+  }
+
+  async saveAccessToken(username: string, access_token: string): Promise<User>{
+    return this.userRepository.saveAccessToken(username, access_token);
   }
 }

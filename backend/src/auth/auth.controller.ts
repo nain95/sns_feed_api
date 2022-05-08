@@ -24,19 +24,6 @@ export class AuthController {
     return access_token;
   }
 
-  @Get('signin')
-  @Render('login.ejs')
-  getLogin(): object {
-    return {"message":"helloworld"}
-    // return this.appService.getHello();
-  }
-
-  @Get('signup')
-  @Render('signup.ejs')
-  getSignUp() {
-    
-  }
-
   @Get("/facebook")
   @UseGuards(AuthGuard("facebook"))
   async facebookLogin(@Req() req: Request, @Res() res:Response): Promise<any> {
@@ -47,12 +34,16 @@ export class AuthController {
   @Get("/facebook/redirect")
   // @UseGuards(AuthGuard("jwt"), AuthGuard("facebook"))
   @UseGuards(AuthGuard("facebook"))
-  async facebookLoginRedirect(@Req() req: Request, @Res() res:Response): Promise<any> {
-    // const username = req.user["username"];
+  async facebookLoginRedirect(@Req() req: Request): Promise<any> {
     const facebook_access_token: string = req.user["facebook_access_token"];
-    this.authService.facebookSingIn('test', facebook_access_token);
-    // return facebook_access_token
-    // res.redirect('http://localhost:3000/auth/signup')
-    // res.send({facebook_access_token})
+    return {facebook_access_token}
+  }
+
+  @Post("/savetoken")
+  @UseGuards(AuthGuard("jwt"))
+  async saveAccessToken(@Req() req: Request, @Body() authCredentialsDto: AuthCredentialsDto): Promise<any> {
+    const username = req.user["username"]
+    const accesstoken = authCredentialsDto.facebook_access_token
+    return this.authService.saveAccessToken(username, accesstoken)
   }
 }

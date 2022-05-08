@@ -9,7 +9,7 @@ export class FacebookStrategy extends PassportStrategy(Strategy, "facebook") {
     super({
       clientID: process.env.APP_ID,
       clientSecret: process.env.APP_SECRET,
-      callbackURL: "http://localhost:3000/auth/facebook/redirect",
+      callbackURL: "https://6df6-121-135-254-216.ngrok.io/auth/facebook/redirect",
       scope: ["email", "user_posts"],
       profileFields: ["email", "name"],
     });

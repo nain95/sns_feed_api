@@ -5,5 +5,5 @@ export declare class FeedRepository extends Repository<Feed> {
     private userRepository;
     saveFeed(user: User, username: string, message: string, image_url: string, created_time: string): Promise<void>;
     getFeed(username: string): Promise<any>;
-    getFeedId(id: number): Promise<any>;
+    getFeedId(username: string, id: number): Promise<any>;
 }

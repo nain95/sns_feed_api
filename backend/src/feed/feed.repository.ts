@@ -28,8 +28,11 @@ export class FeedRepository extends Repository<Feed> {
         return feed
     }
 
-    async getFeedId(id: number): Promise<any> {
+    async getFeedId(username:string, id: number): Promise<any> {
         const feed: Feed = await this.findOne({id});
-        return feed
+        if (feed.author == username)
+            return feed
+        else 
+            throw new ConflictException('author != username');
     }
 }

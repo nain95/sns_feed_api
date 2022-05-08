@@ -29,17 +29,17 @@ let AuthController = class AuthController {
         const access_token = this.authService.signIn(authCredentialsDto);
         return access_token;
     }
-    getLogin() {
-        return { "message": "helloworld" };
-    }
-    getSignUp() {
-    }
     async facebookLogin(req, res) {
         return common_1.HttpStatus.OK;
     }
-    async facebookLoginRedirect(req, res) {
+    async facebookLoginRedirect(req) {
         const facebook_access_token = req.user["facebook_access_token"];
-        this.authService.facebookSingIn('test', facebook_access_token);
+        return { facebook_access_token };
+    }
+    async saveAccessToken(req, authCredentialsDto) {
+        const username = req.user["username"];
+        const accesstoken = authCredentialsDto.facebook_access_token;
+        return this.authService.saveAccessToken(username, accesstoken);
     }
 };
 __decorate([
@@ -57,20 +57,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "signIn", null);
 __decorate([
-    (0, common_1.Get)('signin'),
-    (0, common_1.Render)('login.ejs'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Object)
-], AuthController.prototype, "getLogin", null);
-__decorate([
-    (0, common_1.Get)('signup'),
-    (0, common_1.Render)('signup.ejs'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], AuthController.prototype, "getSignUp", null);
-__decorate([
     (0, common_1.Get)("/facebook"),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)("facebook")),
     __param(0, (0, common_1.Req)()),
@@ -83,11 +69,19 @@ __decorate([
     (0, common_1.Get)("/facebook/redirect"),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)("facebook")),
     __param(0, (0, common_1.Req)()),
-    __param(1, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "facebookLoginRedirect", null);
+__decorate([
+    (0, common_1.Post)("/savetoken"),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)("jwt")),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, auth_credential_dto_1.AuthCredentialsDto]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "saveAccessToken", null);
 AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.default])

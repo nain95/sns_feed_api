@@ -27,12 +27,12 @@ let FeedController = class FeedController {
     getFeed(req) {
         return this.feedService.getFeed(req.user['username']);
     }
-    getFeedId(param) {
-        return this.feedService.getFeedId(param['id']);
+    getFeedId(param, req) {
+        return this.feedService.getFeedId(req.user['username'], param['id']);
     }
 };
 __decorate([
-    (0, common_1.Get)('/pull'),
+    (0, common_1.Post)('/pull'),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
@@ -51,8 +51,9 @@ __decorate([
     (0, common_1.Get)('/:id'),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
     __param(0, (0, common_1.Param)()),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", void 0)
 ], FeedController.prototype, "getFeedId", null);
 FeedController = __decorate([

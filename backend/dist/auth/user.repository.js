@@ -21,7 +21,7 @@ let UserRepository = class UserRepository extends typeorm_1.Repository {
             await this.save(user);
         }
         catch (error) {
-            if (error.code === '23505') {
+            if (error.code === "ER_DUP_ENTRY") {
                 throw new common_1.ConflictException('Existing username');
             }
             else {
@@ -43,6 +43,17 @@ let UserRepository = class UserRepository extends typeorm_1.Repository {
         const update_data = this.create({ id: user.id, facebook_last_time: time });
         try {
             await this.save(update_data);
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException();
+        }
+    }
+    async saveAccessToken(username, access_token) {
+        const user = await this.findOne({ username });
+        const save_token = this.create({ id: user.id, facebook_access_token: access_token });
+        try {
+            await this.save(save_token);
+            return user;
         }
         catch (error) {
             throw new common_1.InternalServerErrorException();

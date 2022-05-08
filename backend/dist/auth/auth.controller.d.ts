@@ -10,8 +10,7 @@ export declare class AuthController {
     signIn(authCredentialsDto: AuthCredentialsDto): Promise<{
         accessToken: string;
     }>;
-    getLogin(): object;
-    getSignUp(): void;
     facebookLogin(req: Request, res: Response): Promise<any>;
-    facebookLoginRedirect(req: Request, res: Response): Promise<any>;
+    facebookLoginRedirect(req: Request): Promise<any>;
+    saveAccessToken(req: Request, authCredentialsDto: AuthCredentialsDto): Promise<any>;
 }

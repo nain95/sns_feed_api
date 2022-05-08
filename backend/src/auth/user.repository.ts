@@ -15,7 +15,7 @@ export class UserRepository extends Repository<User> {
         try{
             await this.save(user);
         }catch (error) {
-            if (error.code === '23505'){
+            if (error.code === "ER_DUP_ENTRY"){
                 throw new ConflictException('Existing username');
             } else {
                 throw new InternalServerErrorException();
@@ -37,6 +37,17 @@ export class UserRepository extends Repository<User> {
         const update_data = this.create({id : user.id, facebook_last_time:time})
         try{
             await this.save(update_data);
+        }catch (error) {
+                throw new InternalServerErrorException();
+        }
+    }
+
+    async saveAccessToken(username: string, access_token: string){
+        const user: User = await this.findOne({ username });
+        const save_token = this.create({id : user.id, facebook_access_token:access_token})
+        try{
+            await this.save(save_token);
+            return user
         }catch (error) {
                 throw new InternalServerErrorException();
         }

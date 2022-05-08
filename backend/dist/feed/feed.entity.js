@@ -40,7 +40,11 @@ __decorate([
     __metadata("design:type", user_entity_1.User)
 ], Feed.prototype, "user", void 0);
 Feed = __decorate([
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)({
+        orderBy: {
+            created_time: 'DESC'
+        }
+    })
 ], Feed);
 exports.Feed = Feed;
 //# sourceMappingURL=feed.entity.js.map
