@@ -1,4 +1,4 @@
-# 2022_SKT_ICT_SNS_API <전인엽>
+# SNS 피드 조회 api
 
 <p align="center">
 <img src="https://img.shields.io/badge/Typescript-3178C6?style=flat&logo=typescript&logoColor=white"/>
